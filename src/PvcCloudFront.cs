@@ -62,6 +62,11 @@ namespace PvcPlugins
             var cfg = new AmazonCloudFrontConfig() { RegionEndpoint = this.regionEndpoint };
             this.cfclient = new AmazonCloudFrontClient(creds, cfg);
 
+            // Verify that the CloudFront distribution exists. This will throw an Exception
+            // if the distribution is inaccessible/doesn't exist.
+            var getDistReq = new GetDistributionRequest() { Id = this.distributionId };
+            this.cfclient.GetDistribution(getDistReq);
+
             // Initialize some private stuff that we use to track md5 sums
             this.keyEtags = new Dictionary<string, string>();
             this.keyMD5Sums = new Dictionary<string, string>();
