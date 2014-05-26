@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Pvc.CloudFront")]
-[assembly: AssemblyDescription("PVC plugin: CloudFront")]
+[assembly: AssemblyDescription("PVC plugin for uploading files to S3 and then invalidating the CloudFront cache.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Paul Zumbrun")]
 [assembly: AssemblyProduct("Pvc.CloudFront")]
