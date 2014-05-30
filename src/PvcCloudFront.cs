@@ -12,6 +12,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 
 namespace PvcPlugins
 {
@@ -154,13 +155,14 @@ namespace PvcPlugins
                 invalidationReq.InvalidationBatch.Paths.Items.Add("/" + uploadReq.Key);
 
                 if (inputStream.Tags.Contains(".html"))
-                {
                     uploadReq.Headers.CacheControl = "max-age=" + this.htmlMaxAge;
-                    uploadReq.Headers.ContentType = "text/html";
-                }
                 else
-                {
                     uploadReq.Headers.CacheControl = "max-age=" + this.maxAge;
+
+                uploadReq.Headers.ContentType = MimeMapping.GetMimeMapping(inputStream.StreamName);
+                if (inputStream.Tags.Contains("gzip"))
+                {
+                    uploadReq.Headers.ContentEncoding = "gzip";
                 }
 
                 transfer.Upload(uploadReq);
